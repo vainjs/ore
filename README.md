@@ -1,0 +1,2 @@
+# ore
+A lean Lodash.
