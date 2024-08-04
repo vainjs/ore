@@ -1,11 +1,11 @@
 import {
+  isObjectLike,
+  isBoolean,
+  isRegExp,
+  isString,
+  isNumber,
   getTag,
   isDate,
-  isNumber,
-  isRegExp,
-  isBoolean,
-  isString,
-  isObjectLike,
 } from './typed'
 
 export function isEqual<T = any>(target: T, other: T) {

@@ -1,4 +1,5 @@
 export * from './collection'
 export * from './control'
+export * from './string'
 export * from './async'
 export * from './typed'

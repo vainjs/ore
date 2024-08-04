@@ -56,6 +56,6 @@ export function isNil(value: unknown): boolean {
   return value === undefined || value === null
 }
 
-export function isPromise(value: any) {
+export function isPromise(value: any): value is Promise<any> {
   return !!(value && value.then && isFunction(value.then))
 }
