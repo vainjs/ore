@@ -1,2 +1,4 @@
 export * from './collection'
-export * from './type'
+export * from './control'
+export * from './async'
+export * from './typed'

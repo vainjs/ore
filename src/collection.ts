@@ -6,7 +6,7 @@ import {
   isBoolean,
   isString,
   isObjectLike,
-} from './type'
+} from './typed'
 
 export function isEqual<T = any>(target: T, other: T) {
   if (Object.is(target, other)) return true
@@ -37,3 +37,15 @@ export function isEqual<T = any>(target: T, other: T) {
   }
   return true
 }
+
+export function isEmpty() {}
+
+export function get() {}
+
+export function reduce() {}
+
+export function map() {}
+
+export function filter() {}
+
+export function find() {}

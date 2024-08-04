@@ -29,7 +29,7 @@ export function isArray(value: unknown): value is Array<any> {
 }
 
 export function isObjectLike(value: unknown) {
-  return typeof value === 'object' && value !== null
+  return value !== null && typeof value === 'object'
 }
 
 export function isPlainObject(value: unknown): value is object {
@@ -52,6 +52,10 @@ export function isBoolean(value: unknown): value is boolean {
   return getTag(value) === '[object Boolean]'
 }
 
-export function isNil(value: unknown) {
+export function isNil(value: unknown): boolean {
   return value === undefined || value === null
+}
+
+export function isPromise(value: any) {
+  return !!(value && value.then && isFunction(value.then))
 }
