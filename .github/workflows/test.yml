@@ -7,6 +7,12 @@ on:
     paths:
       - 'src/**'
 
+  pull_request:
+    branches:
+      - 'dev-*'
+    paths:
+      - 'src/**'
+
 jobs:
   test:
     runs-on: ubuntu-latest
