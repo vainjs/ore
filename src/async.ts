@@ -4,9 +4,10 @@ export function sleep(milliseconds = 0) {
   return new Promise((resolve) => setTimeout(resolve, milliseconds))
 }
 
-type TryitResult<T> = T extends Promise<any>
-  ? Promise<[any, undefined] | [undefined, Awaited<T>]>
-  : [any, undefined] | [undefined, T]
+type TryitResult<T> =
+  T extends Promise<any>
+    ? Promise<[any, undefined] | [undefined, Awaited<T>]>
+    : [any, undefined] | [undefined, T]
 
 export function tryit<T>(fn: T | (() => T)): TryitResult<T> {
   try {
