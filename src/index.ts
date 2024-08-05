@@ -1,5 +1,25 @@
-export * from './collection'
-export * from './control'
-export * from './string'
-export * from './async'
-export * from './typed'
+export {
+  isPlainObject,
+  isObjectLike,
+  isFunction,
+  isPromise,
+  isBoolean,
+  isBrowser,
+  isRegExp,
+  isString,
+  isNumber,
+  isArray,
+  isDate,
+  isNaN,
+  isNil,
+} from './typed'
+export { isEqual } from './collection'
+export { debounce, throttle } from './control'
+export {
+  capitalize,
+  pascalCase,
+  snakeCase,
+  camelCase,
+  kebabCase,
+} from './string'
+export { sleep, tryit } from './async'
