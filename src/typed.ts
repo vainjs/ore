@@ -16,7 +16,7 @@ export function isDate(value: unknown): value is Date {
   return value instanceof Date && !isNaN(value.getTime())
 }
 
-export function isFunction(value: unknown): value is () => void {
+export function isFunction(value: unknown): value is (...args: any[]) => any {
   return typeof value === 'function'
 }
 

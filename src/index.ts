@@ -13,8 +13,16 @@ export {
   isNaN,
   isNil,
 } from './typed'
+
 export { isEqual } from './collection'
-export { debounce, throttle } from './control'
+
+export {
+  type DebounceOptions,
+  type ThrottleOptions,
+  debounce,
+  throttle,
+} from './control'
+
 export {
   capitalize,
   pascalCase,
@@ -22,4 +30,7 @@ export {
   camelCase,
   kebabCase,
 } from './string'
+
 export { sleep, tryit } from './async'
+
+export { compact, filter } from './array'

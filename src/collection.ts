@@ -8,7 +8,7 @@ import {
   isDate,
 } from './typed'
 
-export function isEqual<T = any>(target: T, other: T) {
+export function isEqual<T>(target: T, other: T) {
   if (Object.is(target, other)) return true
   if (getTag(target) !== getTag(other)) return false
   if (isNumber(target) || isBoolean(target) || isString(target)) {
@@ -45,7 +45,5 @@ export function get() {}
 export function reduce() {}
 
 export function map() {}
-
-export function filter() {}
 
 export function find() {}
