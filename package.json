@@ -81,6 +81,10 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "repository": {
+    "url": "https://github.com/vainjs/ore"
+  },
+  "authors": "young",
   "devDependencies": {
     "@commitlint/cli": "^17.6.0",
     "@commitlint/config-conventional": "^17.6.0",
