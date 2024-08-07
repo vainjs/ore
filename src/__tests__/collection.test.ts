@@ -1,4 +1,4 @@
-import { isEqual } from '..'
+import { isEqual, isEmpty } from '..'
 
 describe('isEqual', () => {
   it('should return true for same object', () => {
@@ -115,5 +115,65 @@ describe('isEqual', () => {
 
   it('should return false for different nil', async () => {
     expect(isEqual(null, undefined)).toBe(false)
+  })
+})
+
+describe('isEmpty', () => {
+  test('should return true for empty primitive value', () => {
+    expect(isEmpty(undefined)).toBe(true)
+    expect(isEmpty(false)).toBe(true)
+    expect(isEmpty(null)).toBe(true)
+    expect(isEmpty('')).toBe(true)
+    expect(isEmpty(0n)).toBe(true)
+    expect(isEmpty(0)).toBe(true)
+  })
+
+  test('should return false for non-empty primitive value', () => {
+    expect(isEmpty(Symbol('isEmpty'))).toBe(false)
+    expect(isEmpty('isEmpty')).toBe(false)
+    expect(isEmpty(Symbol())).toBe(false)
+    expect(isEmpty(true)).toBe(false)
+    expect(isEmpty(12n)).toBe(false)
+    expect(isEmpty(12)).toBe(false)
+  })
+
+  test('should return true for empty array', () => {
+    expect(isEmpty([])).toBe(true)
+  })
+
+  test('should return false for non-empty array', () => {
+    expect(isEmpty([1, 2, 3])).toBe(false)
+  })
+
+  test('should return true for empty object', () => {
+    expect(isEmpty({})).toBe(true)
+  })
+
+  test('should return false for non-empty object', () => {
+    expect(isEmpty({ key: 'value' })).toBe(false)
+  })
+
+  test('should return true for empty Map', () => {
+    expect(isEmpty(new Map())).toBe(true)
+  })
+
+  test('should return false for non-empty Map', () => {
+    expect(isEmpty(new Map([['key', 'value']]))).toBe(false)
+  })
+
+  test('should return true for empty Set', () => {
+    expect(isEmpty(new Set())).toBe(true)
+  })
+
+  test('should return false for non-empty Set', () => {
+    expect(isEmpty(new Set([1, 2, 3]))).toBe(false)
+  })
+
+  test('should return false for function', () => {
+    expect(isEmpty(() => {})).toBe(false)
+  })
+
+  test('should return false for Date', () => {
+    expect(isEmpty(new Date())).toBe(false)
   })
 })

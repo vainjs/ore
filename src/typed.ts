@@ -59,3 +59,16 @@ export function isNil(value: unknown): boolean {
 export function isPromise(value: any): value is Promise<any> {
   return !!(value && value.then && isFunction(value.then))
 }
+
+/**
+ * Primitive types: number , string , boolean , symbol, bigint, undefined, null
+ */
+export function isPrimitive(value: unknown) {
+  return (
+    isNil(value) || (typeof value !== 'object' && typeof value !== 'function')
+  )
+}
+
+export const isInt = (value: unknown): value is number => {
+  return isNumber(value) && value % 1 === 0
+}

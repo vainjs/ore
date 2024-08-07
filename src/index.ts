@@ -1,6 +1,7 @@
 export {
   isPlainObject,
   isObjectLike,
+  isPrimitive,
   isFunction,
   isPromise,
   isBoolean,
@@ -12,9 +13,10 @@ export {
   isDate,
   isNaN,
   isNil,
+  isInt,
 } from './typed'
 
-export { isEqual } from './collection'
+export { isEqual, isEmpty, has } from './collection'
 
 export {
   type DebounceOptions,
