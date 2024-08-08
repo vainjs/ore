@@ -1,4 +1,4 @@
-import { isEqual, isEmpty } from '..'
+import { isEqual, isEmpty, reduce } from '..'
 
 describe('isEqual', () => {
   it('should return true for same object', () => {
@@ -88,8 +88,8 @@ describe('isEqual', () => {
     expect(isEqual(Number(1), Number('2'))).toBe(false)
     expect(isEqual(new Number(1), new Number(2))).toBe(false)
     expect(isEqual(new Number(1), new Number('2'))).toBe(false)
-    expect(isEqual(Number(1), new Number('1'))).toBe(false)
-    expect(isEqual(1, new Number('1'))).toBe(false)
+    expect(isEqual(Number(1), new Number(1))).toBe(false)
+    expect(isEqual(1, new Number(1))).toBe(false)
   })
 
   it('should return false for different Symbol', () => {
@@ -175,5 +175,52 @@ describe('isEmpty', () => {
 
   test('should return false for Date', () => {
     expect(isEmpty(new Date())).toBe(false)
+  })
+})
+
+describe('reduce', () => {
+  it('should reduce an array', () => {
+    expect(
+      reduce(
+        [1, 2, 3, 4],
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      )
+    ).toBe(10)
+    expect(
+      reduce(
+        [1, 2, 3, 4],
+        (accumulator, currentValue) => accumulator + currentValue
+      )
+    ).toBe(10)
+  })
+
+  it('should throw an error if initialValue is not provided for an empty array', () => {
+    expect(() =>
+      reduce(
+        [],
+        (accumulator: any, currentValue: any) => accumulator + currentValue
+      )
+    ).toThrow('Reduce of empty array with no initial value')
+  })
+
+  it('should reduce an object', () => {
+    const object = { a: 1, b: 2, c: 3, d: 4 }
+    expect(
+      reduce(
+        object,
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      )
+    ).toBe(10)
+    expect(
+      reduce(object, (accumulator, currentValue) => accumulator + currentValue)
+    ).toBe(10)
+  })
+
+  it('should throw an error if initialValue is not provided for an empty object', () => {
+    expect(() =>
+      reduce({}, (accumulator: any, currentValue) => accumulator + currentValue)
+    ).toThrow('Reduce of empty object with no initial value')
   })
 })

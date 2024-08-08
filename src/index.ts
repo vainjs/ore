@@ -16,7 +16,7 @@ export {
   isInt,
 } from './typed'
 
-export { isEqual, isEmpty, has } from './collection'
+export { isEqual, isEmpty, has, reduce } from './collection'
 
 export {
   type DebounceOptions,

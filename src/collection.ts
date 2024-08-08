@@ -1,6 +1,10 @@
-// import type { ListIterator, ObjectIterator } from './type'
+import type {
+  ArrayReduceIterator,
+  ObjectReduceIterator,
+  ObjectKey,
+} from './type'
 import {
-  // isPlainObject,
+  isPlainObject,
   isObjectLike,
   isPrimitive,
   isFunction,
@@ -8,7 +12,7 @@ import {
   isRegExp,
   isString,
   isNumber,
-  // isArray,
+  isArray,
   getTag,
   isDate,
   isNil,
@@ -65,39 +69,62 @@ export function isEmpty<T>(value: T) {
 
 export function get() {}
 
-// export function reduce<T, R>(
-//   value: T[],
-//   callback: ListIterator<T, R, T[]>,
-//   initialValue: R
-// ): R
+export function reduce<T>(
+  value: Record<ObjectKey, T>,
+  callback: ObjectReduceIterator<T, T>
+): T
 
-// export function reduce<T extends object, R>(
-//   value: T,
-//   callback: ObjectIterator<T[keyof T], R, T>,
-//   initialValue: R
-// ): R
+export function reduce<T>(value: T[], callback: ArrayReduceIterator<T, T>): T
 
-// export function reduce<T, R>(
-//   value: T[] | T,
-//   callback: (
-//     accumulator: R,
-//     currentValue: T,
-//     currentIndex: string | number,
-//     array: T[] | T
-//   ) => R,
-//   initialValue?: R
-// ): R {
-//   if (isArray(value)) {
-//     return value.reduce(callback, initialValue)
-//   }
-//   if (isPlainObject(value)) {
-//     return Object.keys(value).reduce((prev, key) => {
-//       return callback(prev, value[key], key, value)
-//     }, initialValue)
-//   }
+export function reduce<T, R>(
+  value: Record<ObjectKey, T>,
+  callback: ObjectReduceIterator<T, R>,
+  initialValue?: R
+): R
 
-//   return initialValue!
-// }
+export function reduce<T, R>(
+  value: T[],
+  callback: ArrayReduceIterator<T, R>,
+  initialValue?: R
+): R
+
+export function reduce<T, R>(
+  value: T[] | Record<ObjectKey, T>,
+  callback: ObjectReduceIterator<T, R> | ArrayReduceIterator<T, R>,
+  initialValue?: R
+) {
+  const initialized = arguments.length >= 3
+
+  if (isArray(value)) {
+    if (value.length === 0 && !initialized) {
+      throw new TypeError('Reduce of empty array with no initial value')
+    }
+    return value.reduce(
+      callback as ArrayReduceIterator<T, R>,
+      (initialized ? initialValue : value[0]) as R
+    )
+  }
+  if (isPlainObject(value)) {
+    const keys = Object.keys(value).concat(
+      Object.getOwnPropertySymbols(value) as unknown as string[]
+    )
+    if (keys.length === 0 && !initialized) {
+      throw new TypeError('Reduce of empty object with no initial value')
+    }
+    let result = (initialized ? initialValue : value[keys[0]]) as R
+    for (let i = initialized ? 0 : 1; i < keys.length; i++) {
+      const key = keys[i]
+      result = (callback as ObjectReduceIterator<T, R>)(
+        result,
+        value[key],
+        key,
+        value
+      )
+    }
+    return result
+  }
+  throw new TypeError('The value must be an array or object')
+}
 
 export function map() {}
 

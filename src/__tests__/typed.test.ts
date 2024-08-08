@@ -1,6 +1,7 @@
 import {
   isPlainObject,
   isObjectLike,
+  isPrimitive,
   isFunction,
   isPromise,
   isBoolean,
@@ -11,6 +12,7 @@ import {
   isDate,
   isNaN,
   isNil,
+  isInt,
 } from '..'
 
 describe('isNaN', () => {
@@ -244,5 +246,75 @@ describe('isPromise', () => {
   test('should return false for a value with a "then" method that is not a function', () => {
     const thenNotFunctionValue = { then: 'not a function' }
     expect(isPromise(thenNotFunctionValue)).toBe(false)
+  })
+})
+
+describe('isPrimitive', () => {
+  test('should return true for null', () => {
+    expect(isPrimitive(null)).toBe(true)
+  })
+
+  test('should return true for undefined', () => {
+    expect(isPrimitive(undefined)).toBe(true)
+  })
+
+  test('should return true for boolean', () => {
+    expect(isPrimitive(true)).toBe(true)
+  })
+
+  test('should return true for number', () => {
+    expect(isPrimitive(123)).toBe(true)
+  })
+
+  test('should return true for bigint', () => {
+    expect(isPrimitive(BigInt(1))).toBe(true)
+    expect(isPrimitive(1n)).toBe(true)
+  })
+
+  test('should return true for string', () => {
+    expect(isPrimitive('test')).toBe(true)
+  })
+
+  test('should return true for symbol', () => {
+    expect(isPrimitive(Symbol('test'))).toBe(true)
+  })
+
+  test('should return false for object', () => {
+    expect(isPrimitive({})).toBe(false)
+  })
+
+  test('should return false for array', () => {
+    expect(isPrimitive([])).toBe(false)
+  })
+
+  test('should return false for function', () => {
+    expect(isPrimitive(() => {})).toBe(false)
+  })
+
+  test('should return false for date', () => {
+    expect(isPrimitive(new Date())).toBe(false)
+  })
+})
+
+describe('isInt', () => {
+  it('should return true for integer numbers', () => {
+    expect(isInt(10)).toBe(true)
+    expect(isInt(-5)).toBe(true)
+    expect(isInt(0)).toBe(true)
+  })
+
+  it('should return false for non-integer numbers', () => {
+    expect(isInt(10.5)).toBe(false)
+    expect(isInt(-4.2)).toBe(false)
+    expect(isInt(3.14)).toBe(false)
+  })
+
+  it('should return false for non-number values', () => {
+    expect(isInt('10')).toBe(false)
+    expect(isInt(true)).toBe(false)
+    expect(isInt(undefined)).toBe(false)
+    expect(isInt(null)).toBe(false)
+    expect(isInt({})).toBe(false)
+    expect(isInt([])).toBe(false)
   })
 })
