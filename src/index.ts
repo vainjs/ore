@@ -9,14 +9,16 @@ export {
   isRegExp,
   isString,
   isNumber,
+  isEqual,
   isArray,
+  isEmpty,
   isDate,
   isNaN,
   isNil,
   isInt,
 } from './typed'
 
-export { isEqual, isEmpty, has, reduce } from './collection'
+export { reduce, map } from './collection'
 
 export {
   type DebounceOptions,
@@ -36,3 +38,5 @@ export {
 export { sleep, tryit } from './async'
 
 export { compact, filter } from './array'
+
+export { has, get } from './object'

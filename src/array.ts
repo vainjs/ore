@@ -1,9 +1,9 @@
-import type { ArrayIterator, PredicateObject } from './type'
+import type { ArrayIterator, CallbackObject } from './type'
 import { isArray, isFunction, isPlainObject } from './typed'
 
 export function filter<T>(
   value: T[],
-  callback: PredicateObject<T> | ArrayIterator<T, boolean>
+  callback: CallbackObject<T> | ArrayIterator<T, boolean>
 ) {
   if (!isArray(value)) return []
   if (isFunction(callback)) return value.filter(callback)
@@ -22,3 +22,5 @@ export function compact<T>(value: T[]) {
   if (!isArray(value)) return []
   return value.filter(Boolean)
 }
+
+export function find() {}
