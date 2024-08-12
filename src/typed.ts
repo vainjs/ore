@@ -16,7 +16,7 @@ export function isDate(value: unknown): value is Date {
   return value instanceof Date && !isNaN(value.getTime())
 }
 
-export function isFunction(value: unknown): value is () => void {
+export function isFunction(value: unknown): value is (...args: any[]) => any {
   return typeof value === 'function'
 }
 
@@ -58,4 +58,59 @@ export function isNil(value: unknown): boolean {
 
 export function isPromise(value: any): value is Promise<any> {
   return !!(value && value.then && isFunction(value.then))
+}
+
+/**
+ * Primitive types: number , string , boolean , symbol, bigint, undefined, null
+ */
+export function isPrimitive(value: unknown) {
+  return (
+    isNil(value) || (typeof value !== 'object' && typeof value !== 'function')
+  )
+}
+
+export function isInt(value: unknown): value is number {
+  return Number.isInteger(value)
+}
+
+export function isEqual<T>(target: T, other: T) {
+  if (Object.is(target, other)) return true
+  if (getTag(target) !== getTag(other)) return false
+  if (isNumber(target) || isBoolean(target) || isString(target)) {
+    // both are `new Primitive()`s
+    if (typeof target === 'object' && typeof other === 'object') {
+      return (target as object).valueOf() === (other as object).valueOf()
+    }
+  }
+  if (isRegExp(target) && isRegExp(other)) {
+    return target.toString() === other.toString()
+  }
+  if (isDate(target) && isDate(other)) {
+    return target.getTime() === other.getTime()
+  }
+  // the parameter of the ownKeys method must be an object.
+  if (!isObjectLike(target) || !isObjectLike(other)) return false
+  const targetKeys = Reflect.ownKeys(target as unknown as object) as Array<
+    keyof typeof target
+  >
+  const otherKeys = Reflect.ownKeys(other as unknown as object)
+  if (targetKeys.length !== otherKeys.length) return false
+
+  for (const key of targetKeys) {
+    if (!Reflect.has(other as unknown as object, key)) return false
+    if (!isEqual(target[key], other[key])) return false
+  }
+  return true
+}
+
+export function isEmpty<T>(value: T) {
+  if (isPrimitive(value)) return !value
+  if (isFunction(value) || isDate(value)) return false
+  const length = (value as any).length
+  if (isInt(length)) return length === 0
+  const size = (value as any).size
+  if (isInt(size)) return size === 0
+  const keys = Object.keys(value!).length
+  if (isInt(keys)) return keys === 0
+  return false
 }

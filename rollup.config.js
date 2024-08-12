@@ -7,7 +7,6 @@ import pkg from './package.json' assert { type: 'json' }
 const getDir = (url) => path.parse(url).dir
 const external = Object.keys(pkg.peerDependencies || {})
 const commonPlugins = [process.env.NODE_ENV === 'production' && terser()]
-const esDir = getDir(pkg.module)
 
 export default [
   {
@@ -15,9 +14,9 @@ export default [
     output: [
       {
         entryFileNames: '[name].mjs',
+        dir: getDir(pkg.module),
         preserveModules: true,
         format: 'es',
-        dir: esDir,
       },
     ],
     plugins: [

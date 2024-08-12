@@ -1,6 +1,7 @@
 export {
   isPlainObject,
   isObjectLike,
+  isPrimitive,
   isFunction,
   isPromise,
   isBoolean,
@@ -8,13 +9,24 @@ export {
   isRegExp,
   isString,
   isNumber,
+  isEqual,
   isArray,
+  isEmpty,
   isDate,
   isNaN,
   isNil,
+  isInt,
 } from './typed'
-export { isEqual } from './collection'
-export { debounce, throttle } from './control'
+
+export { reduce, map } from './collection'
+
+export {
+  type DebounceOptions,
+  type ThrottleOptions,
+  debounce,
+  throttle,
+} from './control'
+
 export {
   capitalize,
   pascalCase,
@@ -22,4 +34,9 @@ export {
   camelCase,
   kebabCase,
 } from './string'
+
 export { sleep, tryit } from './async'
+
+export { compact, filter, find } from './array'
+
+export { has, get } from './object'
