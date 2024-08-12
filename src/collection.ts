@@ -11,21 +11,17 @@ export function reduce<T>(
   value: Record<ObjectKey, T>,
   callback: ObjectReduceIterator<T, T>
 ): T
-
 export function reduce<T>(value: T[], callback: ArrayReduceIterator<T, T>): T
-
 export function reduce<T, R>(
   value: Record<ObjectKey, T>,
   callback: ObjectReduceIterator<T, R>,
   initialValue?: R
 ): R
-
 export function reduce<T, R>(
   value: T[],
   callback: ArrayReduceIterator<T, R>,
   initialValue?: R
 ): R
-
 export function reduce<T, R>(
   value: T[] | Record<ObjectKey, T>,
   callback: ObjectReduceIterator<T, R> | ArrayReduceIterator<T, R>,
@@ -50,17 +46,14 @@ export function reduce<T, R>(
 }
 
 export function map<T, R>(value: T[], callback: ArrayIterator<T, R>): R[]
-
 export function map<T extends object, K extends keyof T>(
   value: T[],
   callback: K
 ): T[K][]
-
 export function map<T, R>(
   value: Record<ObjectKey, T>,
   callback: ObjectIterator<T, R>
 ): R[]
-
 export function map<T, R>(
   value: T[] | Record<ObjectKey, T>,
   callback: ArrayIterator<T, R> | ObjectIterator<T, R> | ObjectKey

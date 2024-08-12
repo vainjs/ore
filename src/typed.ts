@@ -69,8 +69,8 @@ export function isPrimitive(value: unknown) {
   )
 }
 
-export const isInt = (value: unknown): value is number => {
-  return isNumber(value) && value % 1 === 0
+export function isInt(value: unknown): value is number {
+  return Number.isInteger(value)
 }
 
 export function isEqual<T>(target: T, other: T) {

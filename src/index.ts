@@ -37,6 +37,6 @@ export {
 
 export { sleep, tryit } from './async'
 
-export { compact, filter } from './array'
+export { compact, filter, find } from './array'
 
 export { has, get } from './object'

@@ -1,4 +1,4 @@
-import { compact, filter } from '..'
+import { compact, filter, find } from '..'
 
 describe('filter', () => {
   it('should return an empty array if value is not an array', () => {
@@ -9,8 +9,7 @@ describe('filter', () => {
   })
 
   it('should filter array with predicate function', () => {
-    const array = [1, 2, 3, 4, 5]
-    const result = filter(array, (item) => item > 2)
+    const result = filter([1, 2, 3, 4, 5], (item) => item > 2)
     expect(result).toEqual([3, 4, 5])
   })
 
@@ -51,5 +50,48 @@ describe('compact', () => {
       [],
       {},
     ])
+  })
+})
+
+describe('find', () => {
+  it('should return undefined if the input value is not an array', () => {
+    expect(find({} as any, () => true)).toBeUndefined()
+    expect(find(undefined!, () => true)).toBeUndefined()
+    expect(find('' as any, () => true)).toBeUndefined()
+    expect(find(null!, () => true)).toBeUndefined()
+  })
+
+  it('should return the first element that matches the callback function', () => {
+    expect(find([1, 2, 3, 4, 5], (item) => item > 3)).toBe(4)
+  })
+
+  it('should return the first element that matches the callback object', () => {
+    expect(
+      find(
+        [
+          { name: 'John', age: 25 },
+          { name: 'Jane', age: 30 },
+          { name: 'Jim', age: 35 },
+        ],
+        { age: 30 }
+      )
+    ).toEqual({ name: 'Jane', age: 30 })
+  })
+
+  it('should return undefined if no element matches the callback function', () => {
+    expect(find([1, 2, 3, 4, 5], (item) => item > 10)).toBeUndefined()
+  })
+
+  it('should return undefined if no element matches the callback object', () => {
+    expect(
+      find(
+        [
+          { name: 'John', age: 25 },
+          { name: 'Jane', age: 30 },
+          { name: 'Jim', age: 35 },
+        ],
+        { name: 'Jack', age: 40 }
+      )
+    ).toBeUndefined()
   })
 })
