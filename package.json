@@ -1,6 +1,6 @@
 {
   "name": "@vainjs/ore",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "types": "dist/es/types/index.d.ts",
   "module": "dist/es/index.mjs",
@@ -16,6 +16,14 @@
         "default": "./dist/es/index.mjs"
       },
       "require": "./dist/cjs/index.cjs"
+    },
+    "./array": {
+      "types": "./dist/es/types/array.d.ts",
+      "import": {
+        "node": "./dist/cjs/array.cjs",
+        "default": "./dist/es/array.mjs"
+      },
+      "require": "./dist/cjs/array.cjs"
     },
     "./async": {
       "types": "./dist/es/types/async.d.ts",
@@ -40,6 +48,14 @@
         "default": "./dist/es/control.mjs"
       },
       "require": "./dist/cjs/control.cjs"
+    },
+    "./object": {
+      "types": "./dist/es/types/object.d.ts",
+      "import": {
+        "node": "./dist/cjs/object.cjs",
+        "default": "./dist/es/object.mjs"
+      },
+      "require": "./dist/cjs/object.cjs"
     },
     "./string": {
       "types": "./dist/es/types/string.d.ts",
