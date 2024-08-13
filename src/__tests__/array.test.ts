@@ -23,6 +23,16 @@ describe('filter', () => {
     expect(result).toEqual([{ name: 'Bob', age: 30 }])
   })
 
+  it('should filter array with predicate array', () => {
+    const array = [
+      { name: 'Alice', age: 25 },
+      { name: 'Bob', age: 30 },
+      { name: 'Charlie', age: 35 },
+    ]
+    const result = filter(array, ['age', 30])
+    expect(result).toEqual([{ name: 'Bob', age: 30 }])
+  })
+
   it('should filter array with multiple predicate properties', () => {
     const array = [
       { name: 'Alice', age: 25, gender: 'female' },
@@ -74,6 +84,19 @@ describe('find', () => {
           { name: 'Jim', age: 35 },
         ],
         { age: 30 }
+      )
+    ).toEqual({ name: 'Jane', age: 30 })
+  })
+
+  it('should return the first element that matches the callback array', () => {
+    expect(
+      find(
+        [
+          { name: 'John', age: 25 },
+          { name: 'Jane', age: 30 },
+          { name: 'Jim', age: 35 },
+        ],
+        ['age', 30]
       )
     ).toEqual({ name: 'Jane', age: 30 })
   })
