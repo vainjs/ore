@@ -1,8 +1,8 @@
 export type ObjectKey = string | symbol
 
-export type CallbackObject<T> = T extends object
-  ? Partial<T> & Record<string, any>
-  : never
+export type CallbackObject<T> = T extends object ? Partial<T> : never
+
+export type CallbackArray<T> = T extends object ? [keyof T, T[keyof T]] : never
 
 export type ArrayIterator<T, R = any> = (
   value: T,

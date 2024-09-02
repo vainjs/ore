@@ -50,7 +50,8 @@ export function throttle<T extends unknown[]>(
     if (remaining <= 0) {
       fn.apply(this, args)
       previous = now
-    } else if (trailing && !timer) {
+    } else if (trailing) {
+      if (timer) clearTimeout(timer)
       timer = setTimeout(() => {
         fn.apply(this, args)
         previous = Date.now()
