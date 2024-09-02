@@ -1,6 +1,6 @@
 {
   "name": "@vainjs/ore",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "types": "dist/es/types/index.d.ts",
   "module": "dist/es/index.mjs",
