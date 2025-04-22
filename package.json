@@ -89,7 +89,6 @@
     "package.json",
     "README.md"
   ],
-  "packageManager": "pnpm@8.10.5",
   "engines": {
     "node": ">=16.0.0",
     "pnpm": ">=8.10.5"

@@ -6,6 +6,24 @@ export function compact<T>(value: T[]) {
   return value.filter(Boolean)
 }
 
+function createMatcher<T>(
+  callback: ArrayIterator<T, boolean> | CallbackObject<T> | CallbackArray<T>
+): ArrayIterator<T, boolean> {
+  if (isFunction(callback)) return callback
+  if (isArray(callback) && callback.length === 2) {
+    callback = { [callback[0]]: callback[1] } as CallbackObject<T>
+  }
+  if (isPlainObject(callback)) {
+    return (item) => {
+      if (!isPlainObject(item)) return false
+      return Object.keys(callback).every(
+        (key) => (item as any)[key] === (callback as any)[key]
+      )
+    }
+  }
+  return () => false
+}
+
 export function filter<T>(value: T[], callback: ArrayIterator<T, boolean>): T[]
 export function filter<T>(value: T[], callback: CallbackObject<T>): T[]
 export function filter<T>(value: T[], callback: CallbackArray<T>): T[]
@@ -14,19 +32,7 @@ export function filter<T>(
   callback: ArrayIterator<T, boolean> | CallbackObject<T> | CallbackArray<T>
 ) {
   if (!isArray(value)) return []
-  if (isFunction(callback)) return value.filter(callback)
-  if (isArray(callback) && callback.length === 2) {
-    callback = { [callback[0]]: callback[1] } as CallbackObject<T>
-  }
-  if (isPlainObject(callback)) {
-    return value.filter((item) => {
-      if (!isPlainObject(item)) return false
-      return Object.keys(callback).every(
-        (key) => (item as any)[key] === (callback as any)[key]
-      )
-    })
-  }
-  return []
+  return value.filter(createMatcher(callback))
 }
 
 export function find<T>(
@@ -40,16 +46,5 @@ export function find<T>(
   callback: ArrayIterator<T, boolean> | CallbackObject<T> | CallbackArray<T>
 ) {
   if (!isArray(value)) return
-  if (isFunction(callback)) return value.find(callback)
-  if (isArray(callback) && callback.length === 2) {
-    callback = { [callback[0]]: callback[1] } as CallbackObject<T>
-  }
-  if (isPlainObject(callback)) {
-    return value.find((item) => {
-      if (!isPlainObject(item)) return false
-      return Object.keys(callback).every(
-        (key) => (item as any)[key] === (callback as any)[key]
-      )
-    })
-  }
+  return value.find(createMatcher(callback))
 }

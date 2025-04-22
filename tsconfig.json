@@ -12,7 +12,7 @@
     "module": "ESNext",
     "lib": [
       "esnext",
-      "dom"
+      "dom",
     ],
   },
   "exclude": [
